@@ -1,11 +1,29 @@
 "use client";
 import { SignInButton, useUser, UserButton } from "@clerk/nextjs";
 import { useFullURL } from "@/hooks/use-full-url";
-import { OrganizationSwitcher } from "@clerk/clerk-react";
+import { OrganizationSwitcher, useOrganization } from "@clerk/clerk-react";
+import { useEffect, useState } from "react";
 
 const TopNavbar: React.FC = () => {
   const { user } = useUser();
   const [url] = useFullURL();
+  const { organization } = useOrganization();
+  const [project, setProject] = useState(null);
+
+  console.log("organization nè", organization);
+
+  useEffect(() => {
+    const fetchProject = async () => {
+      if (organization) {
+        const response = await fetch(`/api/organizations/${organization.id}`);
+        if (response.ok) {
+          const data = await response.json();
+        }
+      }
+    };
+
+    fetchProject();
+  }, [organization]);
 
   return (
     <div className="flex h-12 w-full items-center justify-between border-b px-4">

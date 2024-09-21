@@ -23,8 +23,9 @@ type NavItemType = {
 const Sidebar: React.FC = () => {
   const { project } = useProject();
 
+  console.log("project", project);
+
   const { organization } = useOrganization();
-  console.log(organization);
 
   const planningItems = [
     {
@@ -55,7 +56,7 @@ const Sidebar: React.FC = () => {
         </div>
         <div>
           <h2 className="-mb-[0.5px] text-sm font-semibold text-gray-600">
-            {project?.name ?? "Tên dự án"}
+            {organization?.name ?? "Tên dự án"}
           </h2>
           <p className="text-xs text-gray-500">Dự án phần mềm</p>
         </div>

@@ -1,41 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/server/db";
-import { z } from "zod";
-
-const organizationBodyValidator = z.object({
-  name: z.string(),
-  // Thêm các trường khác nếu cần
-});
-
-export type CreateOrganizationBody = z.infer<typeof organizationBodyValidator>;
+import { getAuth } from "@clerk/nextjs/server";
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
-  const validated = organizationBodyValidator.safeParse(body);
+  const { userId } = getAuth(req);
+  if (!userId) return new Response("Unauthenticated request", { status: 403 });
 
-  if (!validated.success) {
-    return new Response("Invalid body", { status: 400 });
+  const body = await req.json();
+  const { organizationName } = body;
+
+  if (!organizationName) {
+    return new Response("Organization name is required", { status: 400 });
   }
 
-  const { name } = validated.data;
-
-  // Tạo Organization (giả sử bạn có model Organization trong Prisma)
-  const organization = await prisma.organization.create({
-    data: {
-      name,
-      // Thêm các trường khác nếu cần
-    },
-  });
-
-  // Tạo Project tương ứng
+  // Tạo Project tương ứng với Organization
   const project = await prisma.project.create({
     data: {
-      key: `PROJECT-${organization.id}`, // Hoặc một key khác phù hợp
-      name: `${name} Project`,
-      // Thêm các trường khác nếu cần
-      members: [], // Nếu cần khởi tạo thành viên
+      key: organizationName.toUpperCase().replace(/\s+/g, "_"), // Tạo key từ tên Organization
+      name: organizationName,
+      defaultAssignee: userId, // Gán người tạo là assignee mặc định
     },
   });
 
-  return NextResponse.json({ organization, project });
+  return NextResponse.json({ project });
 }

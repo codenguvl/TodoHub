@@ -18,8 +18,6 @@ const WorkPeriodFilter: React.FC = () => {
     useFiltersContext();
   const { workPeriods } = useWorkPeriods();
 
-  console.log(workPeriods);
-
   function filterActiveWorkPeriods(workPeriod: WorkPeriod) {
     return workPeriod.status === "ACTIVE";
   }
