@@ -29,6 +29,7 @@ import {
 import { useFiltersContext } from "@/context/use-filters-context";
 import { ProgressBar } from "@/components/progress-bar";
 import { useIsAuthenticated } from "@/hooks/use-is-authed";
+import { useProject } from "@/hooks/query-hooks/use-project";
 
 type CreateTaskProps = {
   name: string;
@@ -43,6 +44,7 @@ const InitiativesTable: React.FC = () => {
   const renderContainerRef = useRef<HTMLDivElement>(null);
   const [isAuthenticated, openAuthModal] = useIsAuthenticated();
   const { user } = useUser();
+  const { project } = useProject();
 
   useLayoutEffect(() => {
     if (!renderContainerRef.current) return;
@@ -72,6 +74,7 @@ const InitiativesTable: React.FC = () => {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         reporterId: user!.id,
         workPeriodColor,
+        projectId: project?.id ?? "",
       },
       {
         onSuccess: () => {

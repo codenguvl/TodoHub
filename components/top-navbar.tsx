@@ -1,23 +1,24 @@
 "use client";
 import { SignInButton, useUser, UserButton } from "@clerk/nextjs";
-import { useFullURL } from "@/hooks/use-full-url";
 import { OrganizationSwitcher, useOrganization } from "@clerk/clerk-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const TopNavbar: React.FC = () => {
   const { user } = useUser();
-  const [url] = useFullURL();
   const { organization } = useOrganization();
-  const [project, setProject] = useState(null);
-
-  console.log("organization nè", organization);
 
   useEffect(() => {
     const fetchProject = async () => {
       if (organization) {
-        const response = await fetch(`/api/organizations/${organization.id}`);
-        if (response.ok) {
+        try {
+          const response = await fetch(`/api/organizations/${organization.id}`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch organization data");
+          }
           const data = await response.json();
+          console.log("Fetched organization data:", data);
+        } catch (error) {
+          console.error("Error fetching organization data:", error);
         }
       }
     };

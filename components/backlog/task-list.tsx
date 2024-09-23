@@ -12,6 +12,7 @@ import clsx from "clsx";
 import { useUser } from "@clerk/clerk-react";
 import { useStrictModeDroppable } from "@/hooks/use-strictmode-droppable";
 import { useIsAuthenticated } from "@/hooks/use-is-authed";
+import { useProject } from "@/hooks/query-hooks/use-project";
 
 const TaskList: React.FC<{
   workPeriodId: string | null;
@@ -22,6 +23,7 @@ const TaskList: React.FC<{
   const [isEditing, setIsEditing] = useState(false);
   const [droppableEnabled] = useStrictModeDroppable();
   const [isAuthenticated, openAuthModal] = useIsAuthenticated();
+  const { project } = useProject();
 
   if (!droppableEnabled) {
     return null;
@@ -50,6 +52,7 @@ const TaskList: React.FC<{
         parentId: null,
         workPeriodId,
         reporterId: user?.id ?? null,
+        projectId: project?.id ?? "",
       },
       {
         onSuccess: () => {

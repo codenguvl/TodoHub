@@ -29,6 +29,7 @@ const postTasksBodyValidator = z.object({
   reporterId: z.string().nullable(),
   parentId: z.string().nullable(),
   workPeriodColor: z.string().nullable().optional(),
+  projectId: z.string(),
 });
 
 export type PostTaskBody = z.infer<typeof postTasksBodyValidator>;
@@ -67,10 +68,14 @@ export type GetTasksResponse = {
 export async function GET(req: NextRequest) {
   const { userId } = getAuth(req);
 
+  const { searchParams } = new URL(req.url);
+  const projectId = searchParams.get("projectId");
+
   const activeTasks = await prisma.task.findMany({
     where: {
       creatorId: userId ?? "init",
       isDeleted: false,
+      projectId: projectId ?? undefined,
     },
   });
 
@@ -129,6 +134,8 @@ export async function POST(req: NextRequest) {
 
   const validated = postTasksBodyValidator.safeParse(body);
 
+  console.log("validated", validated);
+
   if (!validated.success) {
     const message =
       "Invalid body. " + (validated.error.errors[0]?.message ?? "");
@@ -180,6 +187,7 @@ export async function POST(req: NextRequest) {
       parentId: valid.parentId,
       workPeriodColor: valid.workPeriodColor,
       creatorId: userId,
+      projectId: valid.projectId,
     },
   });
   // return NextResponse.json<PostTaskResponse>({ task });

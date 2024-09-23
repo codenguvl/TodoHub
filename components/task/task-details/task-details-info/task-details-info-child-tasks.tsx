@@ -15,6 +15,7 @@ import { EmptyTask } from "@/components/task/task-empty";
 import { useTasks } from "@/hooks/query-hooks/use-tasks";
 import { ProgressBar } from "@/components/progress-bar";
 import { useIsAuthenticated } from "@/hooks/use-is-authed";
+import { useProject } from "@/hooks/query-hooks/use-project";
 
 const ChildTaskList: React.FC<{
   tasks: TaskType[];
@@ -32,6 +33,7 @@ const ChildTaskList: React.FC<{
   const { createTask, isCreating } = useTasks();
   const [isEditing, setIsEditing] = useState(isAddingChildTask);
   const [isAuthenticated, openAuthModal] = useIsAuthenticated();
+  const { project } = useProject();
 
   function handleCreateTask({
     name,
@@ -56,6 +58,7 @@ const ChildTaskList: React.FC<{
         parentId,
         workPeriodId: null,
         reporterId: null,
+        projectId: project?.id ?? "",
       },
       {
         onSuccess: () => {

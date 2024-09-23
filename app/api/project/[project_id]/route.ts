@@ -8,21 +8,28 @@ export type GetProjectResponse = {
 };
 
 export async function GET(req: NextRequest) {
-  const { userId, orgId } = getAuth(req);
+  const { userId } = getAuth(req);
   if (!userId) return new Response("Unauthenticated request", { status: 403 });
 
-  const organizationId = req.url.split("/").pop();
-  if (!organizationId)
+  const projectId = req.url.split("/").pop();
+  if (!projectId)
     return new Response("Organization ID is required", { status: 400 });
 
-  const project = await prisma.project.findUnique({
+  let project = await prisma.project.findUnique({
     where: {
-      key: orgId,
+      key: projectId.toUpperCase(),
     },
   });
 
   if (!project) {
-    return new Response("Project not found", { status: 404 });
+    const organizationName = projectId.replace(/_/g, " ");
+    project = await prisma.project.create({
+      data: {
+        key: projectId,
+        name: organizationName,
+        defaultAssignee: userId,
+      },
+    });
   }
 
   return NextResponse.json({ project });

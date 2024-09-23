@@ -13,12 +13,11 @@ export async function POST(req: NextRequest) {
     return new Response("Organization name is required", { status: 400 });
   }
 
-  // Tạo Project tương ứng với Organization
   const project = await prisma.project.create({
     data: {
-      key: organizationName.toUpperCase().replace(/\s+/g, "_"), // Tạo key từ tên Organization
+      key: organizationName.replace(/\s+/g, "_"),
       name: organizationName,
-      defaultAssignee: userId, // Gán người tạo là assignee mặc định
+      defaultAssignee: userId,
     },
   });
 

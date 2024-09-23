@@ -3,7 +3,7 @@ import { type Metadata } from "next";
 import { getQueryClient } from "@/utils/get-query-client";
 import { Hydrate } from "@/utils/hydrate";
 import { dehydrate } from "@tanstack/query-core";
-import { currentUser } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import {
   getInitialTasksFromServer,
   getInitialProjectFromServer,
@@ -11,12 +11,16 @@ import {
 } from "@/server/functions";
 
 export const metadata: Metadata = {
-  title: "Board",
+  title: "Bảng quản lý",
 };
 
 const BoardPage = async () => {
   const user = await currentUser();
   const queryClient = getQueryClient();
+
+  const { orgId } = auth();
+
+  const organizationId = orgId ?? "";
 
   await Promise.all([
     await queryClient.prefetchQuery(["tasks"], () =>
@@ -25,7 +29,9 @@ const BoardPage = async () => {
     await queryClient.prefetchQuery(["workPeriods"], () =>
       getInitialWorkPeriodsFromServer(user?.id)
     ),
-    await queryClient.prefetchQuery(["project"], getInitialProjectFromServer),
+    await queryClient.prefetchQuery(["project"], () =>
+      getInitialProjectFromServer(organizationId)
+    ),
   ]);
 
   const dehydratedState = dehydrate(queryClient);

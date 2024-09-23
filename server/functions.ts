@@ -1,6 +1,7 @@
 import { filterUserForClient, generateTasksForClient } from "@/utils/helpers";
 import { type UserResource } from "@clerk/types";
-import { clerkClient } from "@clerk/nextjs";
+import { clerkClient } from "@clerk/nextjs/server";
+
 import {
   defaultUsers,
   generateInitialUserComments,
@@ -62,7 +63,7 @@ export async function getInitialTasksFromServer(
       userId: userIds,
       limit: 20,
     })
-  ).map(filterUserForClient);
+  ).data.map(filterUserForClient);
   // --------------------------------------------------
 
   const tasks = generateTasksForClient(
@@ -73,9 +74,9 @@ export async function getInitialTasksFromServer(
   return tasks;
 }
 
-export async function getInitialProjectFromServer() {
+export async function getInitialProjectFromServer(organizationId: string) {
   const project = await prisma.project.findUnique({
-    where: { key: "JIRA-CLONE" },
+    where: { key: organizationId },
   });
   return project;
 }
@@ -110,7 +111,7 @@ export async function getInitialWorkPeriodsFromServer(
   return workPeriods;
 }
 
-export async function initProject() {
+/* export async function initProject() {
   await prisma.project.upsert({
     where: {
       id: "init-project-id-dq8yh-d0as89hjd",
@@ -122,7 +123,7 @@ export async function initProject() {
       key: "JIRA-CLONE",
     },
   });
-}
+} */
 export async function initDefaultUsers() {
   await Promise.all(
     defaultUsers.map(

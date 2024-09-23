@@ -21,6 +21,7 @@ model Project {
     updatedAt       DateTime? @updatedAt
     deletedAt       DateTime?
     members         Member[]
+    tasks           Task[]  
 }
 
 model Member {
@@ -59,6 +60,7 @@ model Task {
     assigneeId     String?
     parentId       String?
     workPeriodId   String?
+    projectId      String?        // Thêm trường projectId
     isDeleted      Boolean       @default(false)
     createdAt      DateTime      @default(now())
     updatedAt      DateTime      @updatedAt
@@ -67,6 +69,7 @@ model Task {
     creatorId      String
     comments       Comment[]
     WorkPeriod     WorkPeriod?   @relation(fields: [workPeriodId], references: [id])
+    Project        Project?       @relation(fields: [projectId], references: [id])
 
     @@unique([key, creatorId])
     @@index([workPeriodId])

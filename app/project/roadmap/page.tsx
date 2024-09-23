@@ -8,15 +8,19 @@ import {
   getInitialProjectFromServer,
   getInitialWorkPeriodsFromServer,
 } from "@/server/functions";
-import { currentUser } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 export const metadata: Metadata = {
-  title: "Roadmap",
+  title: "Kế hoạch",
 };
 
 const RoadmapPage = async () => {
   const user = await currentUser();
   const queryClient = getQueryClient();
+
+  const { orgId } = auth();
+
+  const organizationId = orgId ?? "";
 
   await Promise.all([
     await queryClient.prefetchQuery(["tasks"], () =>
@@ -25,7 +29,9 @@ const RoadmapPage = async () => {
     await queryClient.prefetchQuery(["workPeriods"], () =>
       getInitialWorkPeriodsFromServer(user?.id)
     ),
-    await queryClient.prefetchQuery(["project"], getInitialProjectFromServer),
+    await queryClient.prefetchQuery(["project"], () =>
+      getInitialProjectFromServer(organizationId)
+    ),
   ]);
 
   const dehydratedState = dehydrate(queryClient);

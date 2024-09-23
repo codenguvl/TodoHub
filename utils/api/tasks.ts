@@ -20,8 +20,15 @@ import {
 const baseUrl = getBaseUrl();
 
 export const tasksRoutes = {
-  getTasks: async ({ signal }: { signal?: AbortSignal }) => {
+  getTasks: async ({
+    signal,
+    projectId,
+  }: {
+    signal?: AbortSignal;
+    projectId?: string;
+  }) => {
     const { data } = await axios.get<GetTasksResponse>(`${baseUrl}/api/tasks`, {
+      params: { projectId },
       signal,
     });
     return data?.tasks;
@@ -115,7 +122,6 @@ export const tasksRoutes = {
     taskId: string;
     commentId: string;
   }) => {
-    console.log(taskId, commentId);
     const { data } = await axios.delete<GetTaskCommentResponse>(
       `${baseUrl}/api/tasks/${taskId}/comments/${commentId}`,
       { headers: getHeaders() }
