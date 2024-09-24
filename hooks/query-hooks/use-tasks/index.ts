@@ -5,6 +5,7 @@ import { useUpdateTask } from "./use-update-task";
 import { useUpdateTasksBatch } from "./use-update-batch";
 import { usePostTask } from "./use-post-task";
 import { useDeleteTask } from "./use-delete-task";
+import { useProject } from "../use-project";
 
 export const TOO_MANY_REQUESTS = {
   message: `You have exceeded the number of requests allowed per minute.`,
@@ -12,9 +13,11 @@ export const TOO_MANY_REQUESTS = {
 };
 
 export const useTasks = () => {
+  const { project } = useProject();
+  let projectId = project?.id;
   const { data: tasks, isLoading: tasksLoading } = useQuery(
     ["tasks"],
-    ({ signal }) => api.tasks.getTasks({ signal }),
+    ({ signal }) => api.tasks.getTasks({ signal, projectId }),
     {
       refetchOnMount: false,
     }

@@ -1,6 +1,6 @@
 import { useTaskDetails } from "@/hooks/query-hooks/use-task-details";
 import { type UserResource } from "@clerk/types";
-import { type GetTaskCommentResponse } from "@/app/api/tasks/[taskId]/comments/route";
+import { type GetTaskCommentResponse } from "@/app//[taskId]/comments/route";
 import {
   Editor,
   type EditorContentType,

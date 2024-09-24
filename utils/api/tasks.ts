@@ -27,10 +27,12 @@ export const tasksRoutes = {
     signal?: AbortSignal;
     projectId?: string;
   }) => {
-    const { data } = await axios.get<GetTasksResponse>(`${baseUrl}/api/tasks`, {
-      params: { projectId },
-      signal,
-    });
+    const { data } = await axios.get<GetTasksResponse>(
+      `${baseUrl}/api/tasks?projectId=${projectId}`,
+      {
+        signal,
+      }
+    );
     return data?.tasks;
   },
   updateBatchTasks: async (body: PatchTasksBody) => {

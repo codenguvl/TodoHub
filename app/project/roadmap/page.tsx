@@ -23,14 +23,14 @@ const RoadmapPage = async () => {
   const organizationId = orgId ?? "";
 
   await Promise.all([
+    await queryClient.prefetchQuery(["project"], () =>
+      getInitialProjectFromServer(organizationId)
+    ),
     await queryClient.prefetchQuery(["tasks"], () =>
-      getInitialTasksFromServer(user?.id)
+      getInitialTasksFromServer(user?.id, organizationId)
     ),
     await queryClient.prefetchQuery(["workPeriods"], () =>
       getInitialWorkPeriodsFromServer(user?.id)
-    ),
-    await queryClient.prefetchQuery(["project"], () =>
-      getInitialProjectFromServer(organizationId)
     ),
   ]);
 

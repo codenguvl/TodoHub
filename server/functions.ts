@@ -12,13 +12,25 @@ import { prisma } from "./db";
 import { WorkPeriodStatus } from "@prisma/client";
 
 export async function getInitialTasksFromServer(
-  userId: UserResource["id"] | undefined | null
+  userId: UserResource["id"] | undefined | null,
+  organizationId: string
 ) {
-  let activeTasks = await prisma.task.findMany({
-    where: { isDeleted: false, creatorId: userId ?? "init" },
+  const project = await prisma.project.findUnique({
+    where: { key: organizationId },
   });
 
-  if (userId && (!activeTasks || activeTasks.length === 0)) {
+  if (!project) {
+    return [];
+  }
+
+  let activeTasks = await prisma.task.findMany({
+    where: {
+      isDeleted: false,
+      projectId: project.id,
+    },
+  });
+
+  /* if (userId && (!activeTasks || activeTasks.length === 0)) {
     // New user, create default tasks
     await initDefaultTasks(userId);
     // Create comments for default tasks
@@ -31,7 +43,7 @@ export async function getInitialTasksFromServer(
       },
     });
     activeTasks = newActiveTasks;
-  }
+  } */
 
   if (!activeTasks || activeTasks.length === 0) {
     return [];
