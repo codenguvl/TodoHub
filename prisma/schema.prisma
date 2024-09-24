@@ -21,7 +21,8 @@ model Project {
     updatedAt       DateTime? @updatedAt
     deletedAt       DateTime?
     members         Member[]
-    tasks           Task[]  
+    tasks           Task[]
+    workPeriods     WorkPeriod[] 
 }
 
 model Member {
@@ -102,6 +103,8 @@ model WorkPeriod {
     deletedAt   DateTime?
     status      WorkPeriodStatus @default(PENDING)
     tasks       Task[]
+    projectId   String?
+    Project     Project?        @relation(fields: [projectId], references: [id])
 }
 
 model Comment {

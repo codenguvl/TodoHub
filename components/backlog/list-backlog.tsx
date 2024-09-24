@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/accordion";
 import { useWorkPeriods } from "@/hooks/query-hooks/use-work-periods";
 import { useIsAuthenticated } from "@/hooks/use-is-authed";
+import { useProject } from "@/hooks/query-hooks/use-project";
 
 const BacklogList: React.FC<{
   id: string;
@@ -42,13 +43,17 @@ const BacklogList: React.FC<{
 const BacklogListHeader: React.FC<{ tasks: TaskType[] }> = ({ tasks }) => {
   const { createWorkPeriod } = useWorkPeriods();
   const [isAuthenticated, openAuthModal] = useIsAuthenticated();
+  const { project } = useProject();
+  let projectId = project?.id;
 
   function handleCreateWorkPeriod() {
     if (!isAuthenticated) {
       openAuthModal();
       return;
     }
-    createWorkPeriod();
+    if (projectId) {
+      createWorkPeriod({ projectId });
+    }
   }
 
   return (

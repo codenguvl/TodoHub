@@ -30,7 +30,7 @@ const BoardPage = async () => {
       getInitialTasksFromServer(user?.id, organizationId)
     ),
     await queryClient.prefetchQuery(["workPeriods"], () =>
-      getInitialWorkPeriodsFromServer(user?.id)
+      getInitialWorkPeriodsFromServer(user?.id, organizationId)
     ),
   ]);
 

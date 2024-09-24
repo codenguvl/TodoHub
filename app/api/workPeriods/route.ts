@@ -13,6 +13,8 @@ export type GetWorkPeriodsResponse = {
 
 export async function POST(req: NextRequest) {
   const { userId } = getAuth(req);
+  const { searchParams } = new URL(req.url);
+  const projectId = searchParams.get("projectId");
   if (!userId) return new Response("Unauthenticated request", { status: 403 });
   const { success } = await ratelimit.limit(userId);
   if (!success) return new Response("Too many requests", { status: 429 });
@@ -27,9 +29,10 @@ export async function POST(req: NextRequest) {
 
   const workPeriod = await prisma.workPeriod.create({
     data: {
-      name: `WORKPERIOD-${k}`,
+      name: `LICH_LAM_VIEC-${k}`,
       description: "",
       creatorId: userId,
+      projectId: projectId,
     },
   });
   // return NextResponse.json<PostWorkPeriodResponse>({ workPeriod });
@@ -38,10 +41,15 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   const { userId } = getAuth(req);
+  const { searchParams } = new URL(req.url);
+  const projectId = searchParams.get("projectId");
   const workPeriods = await prisma.workPeriod.findMany({
     where: {
-      OR: [{ status: WorkPeriodStatus.ACTIVE }, { status: WorkPeriodStatus.PENDING }],
-      creatorId: userId ?? "init",
+      OR: [
+        { status: WorkPeriodStatus.ACTIVE },
+        { status: WorkPeriodStatus.PENDING },
+      ],
+      projectId: projectId ?? "",
     },
     orderBy: {
       createdAt: "asc",

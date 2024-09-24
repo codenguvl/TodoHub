@@ -5,14 +5,17 @@ import { type WorkPeriod } from "@prisma/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { type AxiosError } from "axios";
 import { TOO_MANY_REQUESTS } from "./use-tasks";
+import { useProject } from "./use-project";
 
 export const useWorkPeriods = () => {
   const queryClient = useQueryClient();
 
+  const { project } = useProject();
+
   // GET
   const { data: workPeriods, isLoading: workPeriodsLoading } = useQuery(
     ["workPeriods"],
-    api.workPeriods.getWorkPeriods,
+    () => api.workPeriods.getWorkPeriods({ projectId: project?.id ?? "" }),
     {
       refetchOnMount: false,
     }

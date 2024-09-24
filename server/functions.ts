@@ -94,15 +94,24 @@ export async function getInitialProjectFromServer(organizationId: string) {
 }
 
 export async function getInitialWorkPeriodsFromServer(
-  userId: UserResource["id"] | undefined
+  userId: UserResource["id"] | undefined,
+  organizationId: string
 ) {
+  const project = await prisma.project.findUnique({
+    where: { key: organizationId },
+  });
+
+  if (!project) {
+    return [];
+  }
+
   let workPeriods = await prisma.workPeriod.findMany({
     where: {
       OR: [
         { status: WorkPeriodStatus.ACTIVE },
         { status: WorkPeriodStatus.PENDING },
       ],
-      creatorId: userId ?? "init",
+      projectId: project.id ?? "init",
     },
     orderBy: {
       createdAt: "asc",
@@ -116,6 +125,7 @@ export async function getInitialWorkPeriodsFromServer(
     const newWorkPeriods = await prisma.workPeriod.findMany({
       where: {
         creatorId: userId,
+        projectId: project.id,
       },
     });
     workPeriods = newWorkPeriods;

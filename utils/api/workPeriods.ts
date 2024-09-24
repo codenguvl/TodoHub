@@ -12,10 +12,10 @@ import {
 const baseUrl = getBaseUrl();
 
 export const workPeriodsRoutes = {
-  postWorkPeriod: async () => {
+  postWorkPeriod: async ({ projectId }: { projectId?: string }) => {
     try {
       const { data } = await axios.post<PostWorkPeriodResponse>(
-        `${baseUrl}/api/workPeriods`,
+        `${baseUrl}/api/workPeriods?projectId=${projectId}`,
         {
           headers: getHeaders(),
         }
@@ -25,9 +25,9 @@ export const workPeriodsRoutes = {
       console.error(error);
     }
   },
-  getWorkPeriods: async () => {
+  getWorkPeriods: async ({ projectId }: { projectId?: string }) => {
     const { data } = await axios.get<GetWorkPeriodsResponse>(
-      `${baseUrl}/api/workPeriods`,
+      `${baseUrl}/api/workPeriods?projectId=${projectId}`,
       {
         headers: getHeaders(),
       }
