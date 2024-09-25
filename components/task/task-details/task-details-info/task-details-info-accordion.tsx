@@ -46,9 +46,6 @@ const TaskDetailsInfoAccordion: React.FC<{ task: TaskType }> = ({ task }) => {
         <AccordionTrigger className="flex w-full items-center justify-between p-2 font-medium hover:bg-gray-100 [&[data-state=open]>svg]:rotate-180 [&[data-state=open]]:border-b">
           <div className="flex items-center gap-x-1">
             <span className="text-sm">Chi tiết</span>
-            <span className="text-xs text-gray-500">
-              (Người được giao, WorkPeriod, Người báo cáo)
-            </span>
           </div>
           <FaChevronUp
             className="mr-2 text-xs text-black transition-transform"
@@ -78,7 +75,7 @@ const TaskDetailsInfoAccordion: React.FC<{ task: TaskType }> = ({ task }) => {
           </div>
           <div className="my-4 grid grid-cols-3 items-center">
             <span className="text-sm font-semibold text-gray-600">
-              WorkPeriod
+              Lịch làm việc
             </span>
             <div className="flex items-center">
               <span className="text-sm text-gray-700">

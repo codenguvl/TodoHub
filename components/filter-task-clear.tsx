@@ -37,7 +37,7 @@ const ClearFilters: React.FC = () => {
       onClick={clearAllFilters}
       className="text-sm hover:bg-gray-200"
     >
-      Clear Filters
+      Xóa bộ lọc
     </Button>
   );
 };

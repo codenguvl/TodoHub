@@ -41,7 +41,7 @@ const TaskDetailsInfoActions: React.FC<{
           </span>
         </Button>
       </TooltipWrapper>
-      <NotImplemented feature="link">
+      {/* <NotImplemented feature="link">
         <Button
           customColors
           className="flex items-center whitespace-nowrap bg-gray-100 hover:bg-gray-200"
@@ -62,7 +62,7 @@ const TaskDetailsInfoActions: React.FC<{
         >
           <BsThreeDots className="text-xl" />
         </Button>
-      </NotImplemented>
+      </NotImplemented> */}
     </div>
   );
 };

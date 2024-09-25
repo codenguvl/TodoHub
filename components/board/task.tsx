@@ -56,7 +56,7 @@ const Task: React.FC<{ task: TaskType; index: number }> = ({ task, index }) => {
             <Avatar
               size={20}
               src={task.assignee?.avatar}
-              alt={task.assignee?.name ?? "Unassigned"}
+              alt={task.assignee?.name ?? "Chưa được phân công"}
             />
           </div>
         </div>

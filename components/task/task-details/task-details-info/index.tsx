@@ -50,7 +50,6 @@ const SmallTaskDetailsInfo = React.forwardRef<
   return (
     <Fragment>
       <div className="flex items-center gap-x-2">
-        {isInitiative(task) ? <ColorPicker task={task} /> : null}
         <h1
           ref={ref}
           role="button"
@@ -79,14 +78,14 @@ const SmallTaskDetailsInfo = React.forwardRef<
           taskId={task.id}
           variant="lg"
         />
-        <NotImplemented>
+        {/* <NotImplemented>
           <Button customColors className="hover:bg-gray-200">
             <div className="flex items-center">
               <LightningIcon className="mt-0.5" />
               <span>Hành động</span>
             </div>
           </Button>
-        </NotImplemented>
+        </NotImplemented> */}
       </div>
       <Description task={task} key={String(taskKey) + task.id} />
       {hasChildren(task) || isAddingChildTask ? (
@@ -123,7 +122,6 @@ const LargeTaskDetails = React.forwardRef<HTMLDivElement, { task: TaskType }>(
       >
         <div className="overflow-y-auto pr-3">
           <div className="flex items-center gap-x-2">
-            {isInitiative(task) ? <ColorPicker task={task} /> : null}
             <h1
               ref={ref}
               role="button"
@@ -166,14 +164,14 @@ const LargeTaskDetails = React.forwardRef<HTMLDivElement, { task: TaskType }>(
               taskId={task.id}
               variant="lg"
             />
-            <NotImplemented>
+            {/* <NotImplemented>
               <Button customColors className="hover:bg-gray-200">
                 <div className="flex items-center">
                   <LightningIcon className="mt-0.5" />
                   <span>Actions</span>
                 </div>
               </Button>
-            </NotImplemented>
+            </NotImplemented> */}
           </div>
 
           <TaskDetailsInfoAccordion task={task} />

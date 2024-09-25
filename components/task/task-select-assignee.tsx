@@ -28,7 +28,7 @@ const TaskAssigneeSelect: React.FC<{
   const [isAuthenticated, openAuthModal] = useIsAuthenticated();
   const unassigned = {
     id: "unassigned",
-    name: "Unassigned",
+    name: "Chưa được phân công",
     avatar: undefined,
     email: "",
   };
@@ -75,11 +75,11 @@ const TaskAssigneeSelect: React.FC<{
             <Avatar
               size={avatarSize}
               src={task.assignee?.avatar}
-              alt={`${task.assignee?.name ?? "Unassigned"}`}
+              alt={`${task.assignee?.name ?? "Chuưa được phân công"}`}
             />
             {avatarOnly ? null : (
               <span className="rounded-md bg-opacity-30 px-2 text-sm">
-                {task.assignee?.name ?? "Unassigned"}
+                {task.assignee?.name ?? "Chưa được phân công"}
               </span>
             )}
           </Fragment>

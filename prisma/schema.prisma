@@ -27,6 +27,7 @@ model Project {
 
 model Member {
     id        String  @id @default(uuid()) @map("_id")
+    key       String?
     projectId String
     project   Project @relation(fields: [projectId], references: [id])
 
