@@ -13,7 +13,6 @@ import { TaskDetailsInfoAccordion } from "./task-details-info-accordion";
 import { TaskDetailsInfoActions } from "./task-details-info-actions";
 import { ChildTaskList } from "./task-details-info-child-tasks";
 import { hasChildren, isInitiative } from "@/utils/helpers";
-import { ColorPicker } from "@/components/color-picker";
 import { useContainerWidth } from "@/hooks/use-container-width";
 import Split from "react-split";
 import "@/styles/split.css";
@@ -68,24 +67,16 @@ const SmallTaskDetailsInfo = React.forwardRef<
         </h1>
       </div>
 
-      <TaskDetailsInfoActions
-        onAddChildTask={() => setIsAddingChildTask(true)}
-      />
-      <div className="relative flex items-center gap-x-3">
+      <div className="relative mb-3 flex items-center gap-x-3">
+        <TaskDetailsInfoActions
+          onAddChildTask={() => setIsAddingChildTask(true)}
+        />
         <TaskSelectStatus
           key={task.id + task.status}
           currentStatus={task.status}
           taskId={task.id}
           variant="lg"
         />
-        {/* <NotImplemented>
-          <Button customColors className="hover:bg-gray-200">
-            <div className="flex items-center">
-              <LightningIcon className="mt-0.5" />
-              <span>Hành động</span>
-            </div>
-          </Button>
-        </NotImplemented> */}
       </div>
       <Description task={task} key={String(taskKey) + task.id} />
       {hasChildren(task) || isAddingChildTask ? (
@@ -162,7 +153,7 @@ const LargeTaskDetails = React.forwardRef<HTMLDivElement, { task: TaskType }>(
               key={task.id + task.status}
               currentStatus={task.status}
               taskId={task.id}
-              variant="lg"
+              variant="sm"
             />
             {/* <NotImplemented>
               <Button customColors className="hover:bg-gray-200">

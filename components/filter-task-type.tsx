@@ -18,6 +18,12 @@ import { CountBall } from "./task/task-status-count";
 const TaskTypeFilter: React.FC = () => {
   const { taskTypes, setTaskTypes } = useFiltersContext();
 
+  const TASK_TYPE_LABELS: Record<TaskType["type"], string> = {
+    HIGH_PRIORITY: "Cao",
+    MEDIUM_PRIORITY: "Trung bình",
+    LOW_PRIORITY: "Thấp",
+  };
+
   function onSelectChange(
     e: React.ChangeEvent<HTMLInputElement>,
     taskType: TaskType["type"]
@@ -35,7 +41,7 @@ const TaskTypeFilter: React.FC = () => {
           customColors
           className="flex items-center  gap-x-2 transition-all duration-200 hover:bg-gray-200"
         >
-          <span className="text-sm">Loại</span>
+          <span className="text-sm">Loại công việc</span>
           <CountBall
             count={taskTypes.length}
             className="bg-inprogress text-xs text-white"
@@ -73,7 +79,7 @@ const TaskTypeFilter: React.FC = () => {
                 <TaskIcon taskType={type} />
                 <TooltipWrapper text={capitalize(type)}>
                   <span className="text-sm text-gray-700">
-                    {capitalize(type)}
+                    {TASK_TYPE_LABELS[type]}
                   </span>
                 </TooltipWrapper>
               </div>

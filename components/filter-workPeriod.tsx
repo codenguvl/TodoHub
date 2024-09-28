@@ -82,7 +82,7 @@ const WorkPeriodFilter: React.FC = () => {
             ))
           ) : (
             <div className="px-3 py-1.5 text-sm text-gray-500">
-              chưa có thời gian công việc nào được bắt đầu
+              Chưa có thời gian công việc nào được bắt đầu
             </div>
           )}
         </DropdownContent>

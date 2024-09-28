@@ -40,6 +40,11 @@ export const Editor: React.FC<{
   const { historyState } = useSharedHistoryContext();
   const [jsonState, setJsonState] = useState<EditorContentType>(content);
 
+  const actionTranslations: { [key: string]: string } = {
+    description: "mô tả",
+    comment: "bình luận",
+  };
+
   return (
     <Fragment>
       <div
@@ -58,7 +63,7 @@ export const Editor: React.FC<{
               }
               placeholder={
                 <div className="pointer-events-none absolute top-6 select-none px-3 text-sm text-gray-500">
-                  Add your {action} here...
+                  Thêm {actionTranslations[action]} của bạn tại đây...
                 </div>
               }
             />
@@ -80,7 +85,7 @@ export const Editor: React.FC<{
           customPadding
           className="bg-inprogress px-2.5 py-1.5 text-sm font-medium text-white hover:brightness-110"
         >
-          Save
+          Lưu
         </Button>
         <Button
           onClick={onCancel}
@@ -88,7 +93,7 @@ export const Editor: React.FC<{
           customPadding
           className="px-2.5 py-1.5 text-sm font-medium hover:bg-gray-200"
         >
-          Cancel
+          Hủy
         </Button>
       </div>
     </Fragment>

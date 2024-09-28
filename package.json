@@ -1,5 +1,5 @@
 {
-  "name": "jiraclone",
+  "name": "todohub",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -40,6 +40,7 @@
     "dayjs": "^1.11.7",
     "lexical": "^0.10.0",
     "lodash.debounce": "^4.0.8",
+    "lucide-react": "^0.446.0",
     "next": "^14.2.9",
     "react": "^18.3.1",
     "react-beautiful-dnd": "^13.1.1",

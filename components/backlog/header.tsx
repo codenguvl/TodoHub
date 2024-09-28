@@ -10,12 +10,14 @@ import { ClearFilters } from "../filter-task-clear";
 import { NotImplemented } from "../not-implemented";
 import { Button } from "../ui/button";
 import { BiLineChart } from "react-icons/bi";
+import { useOrganization } from "@clerk/clerk-react";
 
 const BacklogHeader: React.FC<{ project: Project }> = ({ project }) => {
   const { search, setSearch } = useFiltersContext();
+  const { organization } = useOrganization();
   return (
     <div className="flex h-fit flex-col">
-      <div className="text-sm text-gray-500">Dự án / {project.name}</div>
+      <div className="text-sm text-gray-500">Dự án / {organization?.name}</div>
       <h1>Công việc tồn đọng </h1>
       <div className="my-3 flex items-center justify-between">
         <div className="flex items-center gap-x-5">

@@ -12,7 +12,7 @@ const TaskDetailsInfoActions: React.FC<{
 }> = ({ onAddChildTask, variant = "sm" }) => {
   return (
     <div className="flex gap-x-2 text-gray-700">
-      <NotImplemented feature="attachment">
+      {/* <NotImplemented feature="attachment">
         <Button
           customColors
           className="flex items-center whitespace-nowrap bg-gray-100 hover:bg-gray-200"
@@ -25,8 +25,8 @@ const TaskDetailsInfoActions: React.FC<{
             {variant === "sm" ? null : "Attach"}
           </span>
         </Button>
-      </NotImplemented>
-      <TooltipWrapper text="Add child task">
+      </NotImplemented> */}
+      <TooltipWrapper text="Thêm tác vụ con">
         <Button
           onClick={onAddChildTask}
           customColors

@@ -16,6 +16,11 @@ export const EditorPreview: React.FC<{
 }> = ({ action, content, className }) => {
   const [jsonState] = useState<EditorContentType>(content);
 
+  const actionTranslations: { [key: string]: string } = {
+    description: "mô tả",
+    comment: "bình luận",
+  };
+
   return (
     <EditorComposer readonly={true} jsonState={jsonState}>
       <div className="relative w-full rounded-[3px] bg-white">
@@ -31,7 +36,7 @@ export const EditorPreview: React.FC<{
           }
           placeholder={
             <div className="pointer-events-none absolute left-0 top-0 flex h-full select-none items-center px-1 text-sm text-gray-500">
-              Add your {action} here...
+              Thêm {actionTranslations[action]} của bạn tại đây...
             </div>
           }
         />

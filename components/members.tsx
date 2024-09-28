@@ -43,14 +43,14 @@ const Members = () => {
         );
       })}
 
-      <NotImplemented feature="thêm người">
+      {/* <NotImplemented feature="thêm người">
         <button>
           <AddPeopleIcon
             className="ml-3 rounded-full bg-gray-200 p-1 text-gray-500"
             size={35}
           />
         </button>
-      </NotImplemented>
+      </NotImplemented> */}
     </div>
   );
 };

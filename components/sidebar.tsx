@@ -8,7 +8,8 @@ import {
   NavigationMenuList,
 } from "./ui/navigation-menu";
 import { usePathname } from "next/navigation";
-import { FaChessPawn, FaChevronRight } from "react-icons/fa";
+import { FaChevronRight } from "react-icons/fa";
+import { CgGoogleTasks } from "react-icons/cg";
 import { useProject } from "@/hooks/query-hooks/use-project";
 
 import { useOrganization } from "@clerk/clerk-react";
@@ -50,13 +51,13 @@ const Sidebar: React.FC = () => {
     <div className="flex h-full w-64 flex-col gap-y-5 bg-gray-50 p-3">
       <div className="my-5 flex items-center gap-x-2 px-3">
         <div className="mt-1 flex items-center justify-center rounded-sm bg-[#FF5630] p-1 text-xs font-bold text-white">
-          <FaChessPawn className="aspect-square text-2xl" />
+          <CgGoogleTasks className="aspect-square text-2xl" />
         </div>
-        <div>
-          <h2 className="-mb-[0.5px] text-sm font-semibold text-gray-600">
+        <div className="flex flex-col">
+          <p className="mt-1 text-xs text-gray-500">Dự án</p>
+          <h2 className="my-0 text-sm font-semibold text-gray-600">
             {organization?.name ?? "Tên dự án"}
           </h2>
-          <p className="text-xs text-gray-500">Dự án phần mềm</p>
         </div>
       </div>
       <NavList label={"LẬP KẾ HOẠCH"} items={planningItems} />

@@ -1,7 +1,7 @@
 import { type ReactNode } from "react";
-import { CheckboxIcon } from "@radix-ui/react-icons";
 import clsx from "clsx";
 import { type Task as TaskType } from "@prisma/client";
+import { CgGoogleTasks } from "react-icons/cg";
 
 type TaskIconProps = {
   taskType: TaskType["type"];
@@ -21,7 +21,7 @@ const Icon: React.FC<{ children: ReactNode; className?: string }> = ({
 const _SubTaskIcon = () => {
   return (
     <Icon className="h-fit bg-subtask">
-      <CheckboxIcon />
+      <CgGoogleTasks />
     </Icon>
   );
 };
@@ -29,7 +29,7 @@ const _SubTaskIcon = () => {
 const TaskIcon = () => {
   return (
     <Icon className="h-fit bg-task">
-      <CheckboxIcon />
+      <CgGoogleTasks />
     </Icon>
   );
 };
@@ -37,7 +37,7 @@ const TaskIcon = () => {
 const InitiativeIcon = () => {
   return (
     <Icon className="h-fit bg-initiative">
-      <CheckboxIcon />
+      <CgGoogleTasks />
     </Icon>
   );
 };
@@ -45,7 +45,7 @@ const InitiativeIcon = () => {
 const HighPriorityIcon = () => {
   return (
     <Icon className="h-fit bg-high-priority">
-      <CheckboxIcon />
+      <CgGoogleTasks />
     </Icon>
   );
 };
@@ -53,7 +53,7 @@ const HighPriorityIcon = () => {
 const MediumPriorityIcon = () => {
   return (
     <Icon className="h-fit bg-medium-priority">
-      <CheckboxIcon />
+      <CgGoogleTasks />
     </Icon>
   );
 };
@@ -61,7 +61,7 @@ const MediumPriorityIcon = () => {
 const LowPriorityIcon = () => {
   return (
     <Icon className="h-fit bg-low-priority">
-      <CheckboxIcon />
+      <CgGoogleTasks />
     </Icon>
   );
 };

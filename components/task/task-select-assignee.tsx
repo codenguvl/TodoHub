@@ -49,10 +49,10 @@ const TaskAssigneeSelect: React.FC<{
       {
         onSuccess: (data) => {
           toast.success({
-            message: `Task assignee updated to ${
-              data.assignee?.name ?? "Unassigned"
+            message: `Người được giao công việc đã được cập nhật thành ${
+              data.assignee?.name ?? "Chưa có người được giao"
             }`,
-            description: "Task assignee changed",
+            description: "Người được giao công việc đã thay đổi",
           });
         },
       }

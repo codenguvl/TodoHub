@@ -29,8 +29,8 @@ const TaskList: React.FC<{
       )}
     >
       <h2 className="sticky top-0 -mx-1.5 -mt-1.5 mb-1.5 rounded-t-md bg-gray-100 px-2 py-3 text-xs text-gray-500">
-        {label} {tasks.filter((task) => task.status == status).length}
-        {` TASK${getPluralEnd(tasks).toUpperCase()}`}
+        {label} {tasks.filter((task) => task.status == status).length} việc
+        {/* {` TASK${getPluralEnd(tasks).toUpperCase()}`} */}
       </h2>
 
       <Droppable droppableId={status}>

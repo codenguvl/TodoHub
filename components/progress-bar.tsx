@@ -27,7 +27,7 @@ const ProgressBar: React.FC<{
       >
         {statusCount.DONE ? (
           <TooltipWrapper
-            text={`Done: ${statusCount.DONE} of ${tasks.length} tasks`}
+            text={`Hoàn thành: ${statusCount.DONE} of ${tasks.length} việc`}
           >
             <div
               style={{ width: `${(statusCount.DONE / tasks.length) * 100}%` }}
@@ -49,7 +49,7 @@ const ProgressBar: React.FC<{
         ) : null}
         {statusCount.TODO ? (
           <TooltipWrapper
-            text={`To Do: ${statusCount.TODO} of ${tasks.length} tasks`}
+            text={`Đang thực hiện: ${statusCount.TODO} of ${tasks.length} việc`}
           >
             <div
               style={{ width: `${(statusCount.TODO / tasks.length) * 100}%` }}
